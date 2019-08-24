@@ -32,21 +32,46 @@ func IRCEncode(n int, s string) string {
 
 	//sArr := []rune(s)
 	// remove the spaces but remember the position
+	spaces := []int{}
 	for i := 0; i < len(s); i++ {
 		if s[i] == ' ' {
 			fmt.Println(i)
+			spaces = append(spaces, i)
 		} else {
 			ret += string(s[i])
 		}
 	}
 
+	fmt.Println(spaces)
 	fmt.Println(ret)
 
 	// shift the order of the string characters to the right by n
 	ret = ret[len(ret)-n:] + ret[:len(ret)-n]
-	//fmt.Println(ret[len(ret)-n:])
-	//fmt.Println(ret[:len(ret)-n])
-	//fmt.Println(ret[5:])
+	fmt.Println("after step 2")
+	fmt.Println(ret)
+	fmt.Println()
+
+	step3string := ""
+	spacePtr := 0
+	charPtr := 0
+
+	for i := 0; i < len(s); i++ {
+		if spaces[spacePtr] == i {
+			step3string += " "
+			spacePtr++
+			// if we have added the last space, just append the remaining characters and break out
+			if spacePtr == len(spaces) {
+				step3string += ret[charPtr:]
+				break
+			}
+		} else {
+			step3string += string(ret[charPtr])
+			charPtr++
+		}
+		fmt.Println(step3string)
+	}
+
+	fmt.Println(step3string)
 
 	return ret
 }
