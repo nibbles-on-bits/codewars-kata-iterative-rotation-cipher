@@ -8,8 +8,11 @@ import (
 
 func main() {
 
-	quote := `If you wish to make an apple pie from scratch, you must first invent the universe.`
+	Decode("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet")
+	/*quote := `If you wish to make an apple pie from scratch, you must first invent the universe.`
 	//solution := `10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet`
+
+
 	fmt.Println()
 	fmt.Println("result:")
 	fmt.Println(Encode(10, quote)) //== solution //true
@@ -27,7 +30,7 @@ func main() {
 			//Encode(k, v)
 			fmt.Println(Encode(k, v))
 		}
-	}
+	}*/
 
 	/* Step-by-step breakdown:
 	   Step 1 — remove all spaces:
@@ -46,6 +49,39 @@ func main() {
 	*/
 
 	//fmt.Println(rotateStringRight(10, "plepiefr"))
+}
+
+func Decode(s string) string {
+	// parse off the pre-pended number
+	fmt.Printf("Welcome to Decode() s=%s\n", s)
+	idx := strings.Index(s, " ")
+	fmt.Printf("idx=%d\n", idx)
+	fmt.Printf("s[:idx]=%v\n", s[:idx])
+	n, _ := strconv.Atoi(s[:idx])
+	fmt.Println(n)
+
+	s1 := s[idx:]
+	fmt.Printf("s1=%v\n", s1)
+
+	s2 := rotateStringleft(n, s1)
+	fmt.Printf("s2=%v\n", s2)
+
+	// now remove spaces (keep track of where they were)
+	s3 := ""          // spaces removed will get stored here
+	spaces := []int{} // indicies of  spaces in s2 get stored here
+	for i := 0; i < len(s2); i++ {
+		if s2[i] == ' ' {
+			//fmt.Println(i)
+			spaces = append(spaces, i)
+		} else {
+			s3 += string(s2[i])
+		}
+	}
+
+	fmt.Printf("spaces[] = %v\n", spaces)
+	fmt.Printf("s3=%v\n", s3)
+
+	return ""
 }
 
 func Encode(n int, s string) string {
@@ -117,6 +153,25 @@ func doapass(n int, s string) string {
 	process = step4string
 
 	return process
+}
+
+func rotateStringleft(n int, s string) string {
+	rs := ""
+	loops := 0
+
+	if n > len(s) {
+		loops = n % len(s)
+	} else {
+		loops = n
+	}
+
+	if loops > 0 {
+		rs = s[n:] + s[:n]
+	} else {
+		rs = s
+	}
+
+	return rs
 }
 
 func rotateStringRight(n int, s string) string {
