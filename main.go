@@ -63,8 +63,18 @@ func Decode(s string) string {
 	s1 := s[idx:]
 	fmt.Printf("s1=%v\n", s1)
 
-	s2 := rotateStringleft(n, s1)
-	fmt.Printf("s2=%v\n", s2)
+	//rotate each space-seperated substring to the left by n characters
+	//s2 := rotateStringleft(n, s1)
+	//fmt.Printf("s2=%v\n", s2)
+	tmp := strings.Split(s1, " ")
+	s2 := ""
+	for i := 0; i < len(tmp); i++ {
+		tmp[i] = rotateStringleft(n, tmp[i])
+		s2 += tmp[i]
+		if i < len(tmp)-1 {
+			s2 = s2 + " "
+		}
+	}
 
 	// now remove spaces (keep track of where they were)
 	s3 := ""          // spaces removed will get stored here
@@ -80,6 +90,10 @@ func Decode(s string) string {
 
 	fmt.Printf("spaces[] = %v\n", spaces)
 	fmt.Printf("s3=%v\n", s3)
+
+	// now rotate left by n
+	s4 := rotateStringleft(n, s3)
+	fmt.Printf("s4=%s\n", s4)
 
 	return ""
 }
