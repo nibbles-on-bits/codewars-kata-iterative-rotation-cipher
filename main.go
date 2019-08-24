@@ -60,13 +60,14 @@ func Decode(s string) string {
 	n, _ := strconv.Atoi(s[:idx])
 	fmt.Println(n)
 
-	s1 := s[idx:]
+	s1 := s[idx+1:]
 	fmt.Printf("s1=%v\n", s1)
 
 	//rotate each space-seperated substring to the left by n characters
 	//s2 := rotateStringleft(n, s1)
 	//fmt.Printf("s2=%v\n", s2)
 	tmp := strings.Split(s1, " ")
+	fmt.Printf("tmp=%s\n", tmp)
 	s2 := ""
 	for i := 0; i < len(tmp); i++ {
 		tmp[i] = rotateStringleft(n, tmp[i])
@@ -75,6 +76,7 @@ func Decode(s string) string {
 			s2 = s2 + " "
 		}
 	}
+	fmt.Printf("s2=%s\n\n", s2)
 
 	// now remove spaces (keep track of where they were)
 	s3 := ""          // spaces removed will get stored here
@@ -92,8 +94,11 @@ func Decode(s string) string {
 	fmt.Printf("s3=%v\n", s3)
 
 	// now rotate left by n
+	fmt.Printf("Now, rotate left %d times\n", n)
 	s4 := rotateStringleft(n, s3)
 	fmt.Printf("s4=%s\n", s4)
+
+	fmt.Printf("and put the spaces back in\n")
 
 	return ""
 }
@@ -169,6 +174,12 @@ func doapass(n int, s string) string {
 	return process
 }
 
+
+// putSpacesBack will put spaces back in a string based on an array of space indexes and a string
+func putSpacesBack(spaces int[], s string) string {
+
+}
+
 func rotateStringleft(n int, s string) string {
 	rs := ""
 	loops := 0
@@ -180,7 +191,7 @@ func rotateStringleft(n int, s string) string {
 	}
 
 	if loops > 0 {
-		rs = s[n:] + s[:n]
+		rs = s[loops:] + s[:loops]
 	} else {
 		rs = s
 	}
