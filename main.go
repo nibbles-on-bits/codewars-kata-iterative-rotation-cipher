@@ -12,7 +12,7 @@ func main() {
 	//solution := `10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet`
 	fmt.Println()
 	fmt.Println("result:")
-	fmt.Println(IRCEncode(10, quote)) //== solution //true
+	fmt.Println(Encode(10, quote)) //== solution //true
 
 	encode_examples := [...]map[int]string{
 		{10: "If you wish to make an apple pie from scratch, you must first invent the universe."},
@@ -24,7 +24,8 @@ func main() {
 
 	for _, z := range encode_examples {
 		for k, v := range z {
-			fmt.Println(k, v)
+			//Encode(k, v)
+			fmt.Println(Encode(k, v))
 		}
 	}
 
@@ -47,7 +48,7 @@ func main() {
 	//fmt.Println(rotateStringRight(10, "plepiefr"))
 }
 
-func IRCEncode(n int, s string) string {
+func Encode(n int, s string) string {
 	ret := s
 	for i := 0; i < n; i++ {
 		ret = doapass(n, ret)
@@ -64,7 +65,7 @@ func doapass(n int, s string) string {
 	// Step 1 - remove all spaces keeping track of where they were at
 	for i := 0; i < len(process); i++ {
 		if process[i] == ' ' {
-			fmt.Println(i)
+			//fmt.Println(i)
 			spaces = append(spaces, i)
 		} else {
 			ret += string(process[i])
@@ -92,15 +93,16 @@ func doapass(n int, s string) string {
 			step3string += string(ret[charPtr])
 			charPtr++
 		}
-		fmt.Println(step3string)
+		//fmt.Println(step3string)
 	}
 
-	fmt.Println(step3string)
+	//fmt.Println(step3string)
 
 	// Step 4 - now shift each space seperated substring to the right n times
-	tmp := strings.Fields(step3string)
-	fmt.Println(tmp)
-	fmt.Println(len(tmp))
+	//tmp := strings.Fields(step3string) // use a different function
+	tmp := strings.Split(step3string, " ")
+	//fmt.Println(tmp)
+	//fmt.Println(len(tmp))
 	step4string := ""
 	for i := 0; i < len(tmp); i++ {
 		tmp[i] = rotateStringRight(n, tmp[i])
@@ -110,8 +112,8 @@ func doapass(n int, s string) string {
 		}
 	}
 
-	fmt.Println("step4string")
-	fmt.Println(step4string)
+	//fmt.Println("step4string")
+	//fmt.Println(step4string)
 	process = step4string
 
 	return process
