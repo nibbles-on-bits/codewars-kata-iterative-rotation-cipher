@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -25,6 +26,8 @@ func main() {
 
 	   Repeat the steps 9 more times before returning the string with `10 ` prepended.
 	*/
+
+	fmt.Println(rotateStringRight(132345, "something"))
 }
 
 func IRCEncode(n int, s string) string {
@@ -73,5 +76,29 @@ func IRCEncode(n int, s string) string {
 
 	fmt.Println(step3string)
 
+	// now shift each space seperated substring to the right n times
+	tmp := strings.Fields(step3string)
+	fmt.Println(tmp)
+	fmt.Println(len(tmp))
+	for i := 0; i < len(tmp); i++ {
+		rotateStringRight(n, tmp[i])
+	}
+
 	return ret
+}
+
+func rotateStringRight(n int, s string) string {
+	rs := ""
+	fmt.Printf("rotateStringRight() called  n=%d  s=%s\n", n, s)
+
+	loops := 0
+	if n > len(s) {
+		loops = len(s) % n
+	} else {
+		loops = n
+	}
+
+	rs = s[loops-1:] + s[:loops-1]
+
+	return rs
 }
