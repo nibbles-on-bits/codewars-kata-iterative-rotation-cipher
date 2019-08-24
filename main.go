@@ -14,6 +14,20 @@ func main() {
 	fmt.Println("result:")
 	fmt.Println(IRCEncode(10, quote)) //== solution //true
 
+	encode_examples := [...]map[int]string{
+		{10: "If you wish to make an apple pie from scratch, you must first invent the universe."},
+		{14: "True evil is a mundane bureaucracy."},
+		{22: "There is nothing more atrociously cruel than an adored child."},
+		{36: "As I was going up the stair\nI met a man who wasn't there!\nHe wasn't there again today,\nOh how I wish he'd go away!"},
+		{29: "I avoid that bleak first hour of the working day during which my still sluggish senses and body make every chore a penance.\nI find that in arriving later, the work which I do perform is of a much higher quality."},
+	}
+
+	for _, z := range encode_examples {
+		for k, v := range z {
+			fmt.Println(k, v)
+		}
+	}
+
 	/* Step-by-step breakdown:
 	   Step 1 — remove all spaces:
 	   `Ifyouwishtomakeanapplepiefromscratch,youmustfirstinventtheuniverse.`
