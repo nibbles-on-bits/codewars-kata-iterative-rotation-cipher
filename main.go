@@ -9,7 +9,9 @@ func main() {
 
 	quote := `If you wish to make an apple pie from scratch, you must first invent the universe.`
 	//solution := `10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet`
-	IRCEncode(10, quote) //== solution //true
+	fmt.Println()
+	fmt.Println("result:")
+	fmt.Println(IRCEncode(10, quote)) //== solution //true
 
 	/* Step-by-step breakdown:
 	   Step 1 — remove all spaces:
@@ -27,21 +29,20 @@ func main() {
 	   Repeat the steps 9 more times before returning the string with `10 ` prepended.
 	*/
 
-	fmt.Println(rotateStringRight(132345, "something"))
+	//fmt.Println(rotateStringRight(10, "plepiefr"))
 }
 
 func IRCEncode(n int, s string) string {
 	ret := ""
+	process := s
 
-	//sArr := []rune(s)
-	// remove the spaces but remember the position
 	spaces := []int{}
-	for i := 0; i < len(s); i++ {
-		if s[i] == ' ' {
+	for i := 0; i < len(process); i++ {
+		if process[i] == ' ' {
 			fmt.Println(i)
 			spaces = append(spaces, i)
 		} else {
-			ret += string(s[i])
+			ret += string(process[i])
 		}
 	}
 
@@ -50,15 +51,12 @@ func IRCEncode(n int, s string) string {
 
 	// shift the order of the string characters to the right by n
 	ret = ret[len(ret)-n:] + ret[:len(ret)-n]
-	fmt.Println("after step 2")
-	fmt.Println(ret)
-	fmt.Println()
 
 	step3string := ""
 	spacePtr := 0
 	charPtr := 0
 
-	for i := 0; i < len(s); i++ {
+	for i := 0; i < len(process); i++ {
 		if spaces[spacePtr] == i {
 			step3string += " "
 			spacePtr++
@@ -80,11 +78,20 @@ func IRCEncode(n int, s string) string {
 	tmp := strings.Fields(step3string)
 	fmt.Println(tmp)
 	fmt.Println(len(tmp))
+	step4string := ""
 	for i := 0; i < len(tmp); i++ {
-		rotateStringRight(n, tmp[i])
+		tmp[i] = rotateStringRight(n, tmp[i])
+		step4string = step4string + tmp[i]
+		if i < len(tmp)-1 {
+			step4string = step4string + " "
+		}
 	}
 
-	return ret
+	fmt.Println("step4string")
+	fmt.Println(step4string)
+	process = step4string
+
+	return process
 }
 
 func rotateStringRight(n int, s string) string {
@@ -93,12 +100,18 @@ func rotateStringRight(n int, s string) string {
 
 	loops := 0
 	if n > len(s) {
-		loops = len(s) % n
+		loops = n % len(s)
 	} else {
 		loops = n
 	}
 
-	rs = s[loops-1:] + s[:loops-1]
+	pos := len(s) - loops
+
+	if loops > 0 {
+		rs = s[pos:] + s[:pos]
+	} else {
+		return s
+	}
 
 	return rs
 }
