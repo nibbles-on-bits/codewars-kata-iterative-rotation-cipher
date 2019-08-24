@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -33,10 +34,20 @@ func main() {
 }
 
 func IRCEncode(n int, s string) string {
+	ret := s
+	for i := 0; i < n; i++ {
+		ret = doapass(n, ret)
+	}
+
+	return strconv.Itoa(n) + " " + ret
+}
+
+func doapass(n int, s string) string {
 	ret := ""
 	process := s
-
 	spaces := []int{}
+
+	// Step 1 - remove all spaces keeping track of where they were at
 	for i := 0; i < len(process); i++ {
 		if process[i] == ' ' {
 			fmt.Println(i)
@@ -46,12 +57,10 @@ func IRCEncode(n int, s string) string {
 		}
 	}
 
-	fmt.Println(spaces)
-	fmt.Println(ret)
-
-	// shift the order of the string characters to the right by n
+	// Step 2 - Shift the order of the string characters to the right by n
 	ret = ret[len(ret)-n:] + ret[:len(ret)-n]
 
+	// Step 3 - Place the spaces back in their original positions
 	step3string := ""
 	spacePtr := 0
 	charPtr := 0
@@ -74,7 +83,7 @@ func IRCEncode(n int, s string) string {
 
 	fmt.Println(step3string)
 
-	// now shift each space seperated substring to the right n times
+	// Step 4 - now shift each space seperated substring to the right n times
 	tmp := strings.Fields(step3string)
 	fmt.Println(tmp)
 	fmt.Println(len(tmp))
@@ -96,7 +105,7 @@ func IRCEncode(n int, s string) string {
 
 func rotateStringRight(n int, s string) string {
 	rs := ""
-	fmt.Printf("rotateStringRight() called  n=%d  s=%s\n", n, s)
+	//fmt.Printf("rotateStringRight() called  n=%d  s=%s\n", n, s)
 
 	loops := 0
 	if n > len(s) {
