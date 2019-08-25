@@ -15,11 +15,12 @@ func main() {
 	//test := "7 O$eegv4'0\"xRu:Dz2Wq1?}?#s9'c8#^EN5ApNxf7a&Yp3pn%LcX8RF]vA*6P"
 	//test := "40 l^v^l)>wAlMe[5x1^nxy'm'D<rhB7hxVN7ss3eN&1.yWbkqy6GW=ZsEV,$j%oMu),@^.C''bsexO&'.sJ-wm))F@\n:zfY*>;}NtbXmTuQHcXkLIN+S:6u{-abi@(iZ7+:^4e9]&*jZkj>zl!-rO+pxqL[IV^\":.V]z!4N{59'&k9Z<0$xj9PEg1p_9Tbg%VF[y'.r@aAN\"NuMPR_6  G]lj{h<^x  D&[+NA^)LPoE=?hCE   Bbx8T_^7O6!xte-o\"V(\n3')/93)"
 	//test := "10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet"
-	//Decode(test)
+	test := "74 K99?2g-\"1EvI>C+:NwFeT\"nMNk1 kd:^XZI0;4-}I,\n6k')),&tH,>Y!rmj.Gb  =egR(   .<b*VXflJNv<^3Qe)&hRF6tlv/Z9jP7mL]__blH*j3)2/dRh4>/>9z4!60uY\nYE35Ie^4'K,exlL7=nf&SWXD2Mk}Q*U2:fMgX6'HJ?5>;W)fSusd$jAW: kn(7As C;J<;t\nFGX;9\",E$cr.f&[(T15v1#! bOVd.E#\"y{rWFY )D]O\n++&Gd8z'/]YT0V6>[Cc*6.kD}F,:v$sYG1J>#Y\nDpz/.TAMI43zP?SWY\"QSTwiZFr.5M^8#]&y( .V<jH_.Dr&n[dhL-6xZUfY@]I#^6'b.DULwyR  eg*Tg-''o-H ,xy%F   <zGLt*[Hy3'.(?CxhdNSU%n8Q^<FnDEK@<\"Z(Ij<bnU5K"
+	Decode(test)
 
 	//test := "l1NkL%.bX#($o9.#   q<R;S2iMpP;#}k"
 	//Encode(7, "0bOg&gWIfAN.y@M)R4P)SAZ3^aDuHKOCw")
-	Encode(8, "vd-5E2L@mI$   @3mdvW[iF$?g>k  uOiMk/Cfd")
+	//Encode(8, "vd-5E2L@mI$   @3mdvW[iF$?g>k  uOiMk/Cfd")
 
 	/*quote := `If you wish to make an apple pie from scratch, you must first invent the universe.`
 	//solution := `10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet`
