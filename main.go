@@ -8,7 +8,12 @@ import (
 
 func main() {
 
-	Decode("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet")
+	//Decode("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet")
+	//test := "ZEMS)wyq-8Q!B.fu)Bd7,#)B{,UL=WWcKPds0'!q[m,dfhj4?U]BUDITyp,c09z4,wkZ&>Cp91{IJC&e\nVnGFhW(.[g*2l2{ES2.+!eY9Qjd+%mgFePV.qI{2k8tEBY.1\"wH@<CPf5C.a+I.x6_h,590   jYVB_jVuh,88^,EF}mIu62&\"?G6'ozhF,c]pp4S+e\nj/*\"e>1N8.Np+dq _f<X/46BOE7jSe\"Alj_@mQI9cLqJo+O]_c9<[{+f4jYGM8gN\n+{.Kej*'SQso.}ML!JVd-G](]?1E>4,$+yP0msVvI8)d_{/}n:,l3O2x  CGBjTZ(w^gaO=_MD2OS(nZwx,G5><H}2\")te}2/Y^!Wf.ux[6L3l/RREEacG%?qS-+RvLt>rt#)nfP._1Cm%3_Pua.ebvp<ZzRcbW)W\nbH   !@72-2y0mP_:Y#jIN*w437vx6CQoeJT2,Bq.\n(HAx{nkNk\n7*^NI,4nw#DDZpJAyPE*Z."
+	//test := "7 O$eegv4'0\"xRu:Dz2Wq1?}?#s9'c8#^EN5ApNxf7a&Yp3pn%LcX8RF]vA*6P"
+	test := "40 l^v^l)>wAlMe[5x1^nxy'm'D<rhB7hxVN7ss3eN&1.yWbkqy6GW=ZsEV,$j%oMu),@^.C''bsexO&'.sJ-wm))F@\n:zfY*>;}NtbXmTuQHcXkLIN+S:6u{-abi@(iZ7+:^4e9]&*jZkj>zl!-rO+pxqL[IV^\":.V]z!4N{59'&k9Z<0$xj9PEg1p_9Tbg%VF[y'.r@aAN\"NuMPR_6  G]lj{h<^x  D&[+NA^)LPoE=?hCE   Bbx8T_^7O6!xte-o\"V(\n3')/93)"
+	Decode(test)
+
 	/*quote := `If you wish to make an apple pie from scratch, you must first invent the universe.`
 	//solution := `10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet`
 
@@ -53,7 +58,7 @@ func main() {
 
 func Decode(s string) string {
 	// parse off the pre-pended number
-	//fmt.Printf("Welcome to Decode() s=%s\n", s)
+	fmt.Printf("Welcome to Decode()\ns=%s\n", s)
 	idx := strings.Index(s, " ")
 	//fmt.Printf("idx=%d\n", idx)
 	//fmt.Printf("s[:idx]=%v\n", s[:idx])
@@ -107,6 +112,12 @@ func Decode(s string) string {
 
 		// Place the spaces back in their original positions
 		fmt.Printf("Put the spaces back in\n")
+
+		// q? If there are no spaces, what do we do?
+		if len(spaces) == 0 {
+			dome = s4
+			continue // we are done with this iteration
+		}
 
 		s5 := ""
 		spacePtr := 0
