@@ -53,54 +53,84 @@ func main() {
 
 func Decode(s string) string {
 	// parse off the pre-pended number
-	fmt.Printf("Welcome to Decode() s=%s\n", s)
+	//fmt.Printf("Welcome to Decode() s=%s\n", s)
 	idx := strings.Index(s, " ")
-	fmt.Printf("idx=%d\n", idx)
-	fmt.Printf("s[:idx]=%v\n", s[:idx])
+	//fmt.Printf("idx=%d\n", idx)
+	//fmt.Printf("s[:idx]=%v\n", s[:idx])
 	n, _ := strconv.Atoi(s[:idx])
-	fmt.Println(n)
+	//fmt.Println(n)
 
-	s1 := s[idx+1:]
-	fmt.Printf("s1=%v\n", s1)
+	dome := s[idx+1:]
+	//s1 := dome[idx+1:]
 
-	//rotate each space-seperated substring to the left by n characters
-	//s2 := rotateStringleft(n, s1)
-	//fmt.Printf("s2=%v\n", s2)
-	tmp := strings.Split(s1, " ")
-	fmt.Printf("tmp=%s\n", tmp)
-	s2 := ""
-	for i := 0; i < len(tmp); i++ {
-		tmp[i] = rotateStringleft(n, tmp[i])
-		s2 += tmp[i]
-		if i < len(tmp)-1 {
-			s2 = s2 + " "
+	for x := 0; x < n; x++ {
+		fmt.Printf("===============================================================================================\n")
+		fmt.Printf("Decode() pass#:%d/%d\n", x, n-1)
+
+		// Rotate each space-seperated substring to the left by n characters // TODO : put this in a function?
+		fmt.Printf("Rotate each space-seperated substring to the left by %d characters.\n", n)
+
+		s1 := dome
+		fmt.Printf("s1=%v\n", s1)
+		tmp := strings.Split(s1, " ")
+		//fmt.Printf("tmp=%s\n", tmp)
+		s2 := ""
+		for i := 0; i < len(tmp); i++ {
+			tmp[i] = rotateStringleft(n, tmp[i])
+			s2 += tmp[i]
+			if i < len(tmp)-1 {
+				s2 = s2 + " "
+			}
 		}
-	}
-	fmt.Printf("s2=%s\n\n", s2)
+		fmt.Printf("s2=%s\n\n", s2)
 
-	// now remove spaces (keep track of where they were)
-	s3 := ""          // spaces removed will get stored here
-	spaces := []int{} // indicies of  spaces in s2 get stored here
-	for i := 0; i < len(s2); i++ {
-		if s2[i] == ' ' {
-			//fmt.Println(i)
-			spaces = append(spaces, i)
-		} else {
-			s3 += string(s2[i])
+		// now remove spaces (keep track of where they were)
+		fmt.Printf("Remove the spaces (keeping track of where they were)\n")
+		s3 := ""          // spaces removed will get stored here
+		spaces := []int{} // indicies of  spaces in s2 get stored here
+		for i := 0; i < len(s2); i++ {
+			if s2[i] == ' ' {
+				//fmt.Println(i)
+				spaces = append(spaces, i)
+			} else {
+				s3 += string(s2[i])
+			}
 		}
+
+		fmt.Printf("spaces[] = %v\n", spaces)
+		fmt.Printf("s3=%v\n\n", s3)
+
+		// now rotate left by n
+		fmt.Printf("Now, rotate left %d times\n", n)
+		s4 := rotateStringleft(n, s3)
+		fmt.Printf("s4=%s\n\n", s4)
+
+		// Place the spaces back in their original positions
+		fmt.Printf("Put the spaces back in\n")
+
+		s5 := ""
+		spacePtr := 0
+		charPtr := 0
+
+		for i := 0; i < len(dome); i++ {
+			if spaces[spacePtr] == i {
+				s5 += " "
+				spacePtr++
+				// if we have added the last space, just append the remaining characters and break out
+				if spacePtr == len(spaces) {
+					s5 += s4[charPtr:]
+					break
+				}
+			} else {
+				s5 += string(s4[charPtr])
+				charPtr++
+			}
+		}
+		fmt.Printf("s5=%s\n", s5)
+		dome = s5
 	}
 
-	fmt.Printf("spaces[] = %v\n", spaces)
-	fmt.Printf("s3=%v\n", s3)
-
-	// now rotate left by n
-	fmt.Printf("Now, rotate left %d times\n", n)
-	s4 := rotateStringleft(n, s3)
-	fmt.Printf("s4=%s\n", s4)
-
-	fmt.Printf("and put the spaces back in\n")
-
-	return ""
+	return dome
 }
 
 func Encode(n int, s string) string {
@@ -174,13 +204,16 @@ func doapass(n int, s string) string {
 	return process
 }
 
-
+// TODO : create this fn
 // putSpacesBack will put spaces back in a string based on an array of space indexes and a string
-func putSpacesBack(spaces int[], s string) string {
+//func putSpacesBack(spaces int[], s string) string {
 
-}
+//}
 
 func rotateStringleft(n int, s string) string {
+	if s == "" {
+		return ""
+	}
 	rs := ""
 	loops := 0
 
