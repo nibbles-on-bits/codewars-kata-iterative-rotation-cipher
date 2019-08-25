@@ -6,13 +6,20 @@ import (
 	"strings"
 )
 
+var DebugLevel int = 0
+
 func main() {
 
 	//Decode("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet")
 	//test := "ZEMS)wyq-8Q!B.fu)Bd7,#)B{,UL=WWcKPds0'!q[m,dfhj4?U]BUDITyp,c09z4,wkZ&>Cp91{IJC&e\nVnGFhW(.[g*2l2{ES2.+!eY9Qjd+%mgFePV.qI{2k8tEBY.1\"wH@<CPf5C.a+I.x6_h,590   jYVB_jVuh,88^,EF}mIu62&\"?G6'ozhF,c]pp4S+e\nj/*\"e>1N8.Np+dq _f<X/46BOE7jSe\"Alj_@mQI9cLqJo+O]_c9<[{+f4jYGM8gN\n+{.Kej*'SQso.}ML!JVd-G](]?1E>4,$+yP0msVvI8)d_{/}n:,l3O2x  CGBjTZ(w^gaO=_MD2OS(nZwx,G5><H}2\")te}2/Y^!Wf.ux[6L3l/RREEacG%?qS-+RvLt>rt#)nfP._1Cm%3_Pua.ebvp<ZzRcbW)W\nbH   !@72-2y0mP_:Y#jIN*w437vx6CQoeJT2,Bq.\n(HAx{nkNk\n7*^NI,4nw#DDZpJAyPE*Z."
 	//test := "7 O$eegv4'0\"xRu:Dz2Wq1?}?#s9'c8#^EN5ApNxf7a&Yp3pn%LcX8RF]vA*6P"
-	test := "40 l^v^l)>wAlMe[5x1^nxy'm'D<rhB7hxVN7ss3eN&1.yWbkqy6GW=ZsEV,$j%oMu),@^.C''bsexO&'.sJ-wm))F@\n:zfY*>;}NtbXmTuQHcXkLIN+S:6u{-abi@(iZ7+:^4e9]&*jZkj>zl!-rO+pxqL[IV^\":.V]z!4N{59'&k9Z<0$xj9PEg1p_9Tbg%VF[y'.r@aAN\"NuMPR_6  G]lj{h<^x  D&[+NA^)LPoE=?hCE   Bbx8T_^7O6!xte-o\"V(\n3')/93)"
-	Decode(test)
+	//test := "40 l^v^l)>wAlMe[5x1^nxy'm'D<rhB7hxVN7ss3eN&1.yWbkqy6GW=ZsEV,$j%oMu),@^.C''bsexO&'.sJ-wm))F@\n:zfY*>;}NtbXmTuQHcXkLIN+S:6u{-abi@(iZ7+:^4e9]&*jZkj>zl!-rO+pxqL[IV^\":.V]z!4N{59'&k9Z<0$xj9PEg1p_9Tbg%VF[y'.r@aAN\"NuMPR_6  G]lj{h<^x  D&[+NA^)LPoE=?hCE   Bbx8T_^7O6!xte-o\"V(\n3')/93)"
+	//test := "10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet"
+	//Decode(test)
+
+	//test := "l1NkL%.bX#($o9.#   q<R;S2iMpP;#}k"
+	//Encode(7, "0bOg&gWIfAN.y@M)R4P)SAZ3^aDuHKOCw")
+	Encode(8, "vd-5E2L@mI$   @3mdvW[iF$?g>k  uOiMk/Cfd")
 
 	/*quote := `If you wish to make an apple pie from scratch, you must first invent the universe.`
 	//solution := `10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet`
@@ -65,6 +72,12 @@ func Decode(s string) string {
 	n, _ := strconv.Atoi(s[:idx])
 	//fmt.Println(n)
 
+	s1 := ""
+	s2 := ""
+	s3 := ""
+	s4 := ""
+	s5 := ""
+
 	dome := s[idx+1:]
 	//s1 := dome[idx+1:]
 
@@ -75,11 +88,11 @@ func Decode(s string) string {
 		// Rotate each space-seperated substring to the left by n characters // TODO : put this in a function?
 		fmt.Printf("Rotate each space-seperated substring to the left by %d characters.\n", n)
 
-		s1 := dome
+		s1 = dome
 		fmt.Printf("s1=%v\n", s1)
 		tmp := strings.Split(s1, " ")
 		//fmt.Printf("tmp=%s\n", tmp)
-		s2 := ""
+		s2 = ""
 		for i := 0; i < len(tmp); i++ {
 			tmp[i] = rotateStringleft(n, tmp[i])
 			s2 += tmp[i]
@@ -91,7 +104,7 @@ func Decode(s string) string {
 
 		// now remove spaces (keep track of where they were)
 		fmt.Printf("Remove the spaces (keeping track of where they were)\n")
-		s3 := ""          // spaces removed will get stored here
+		s3 = ""           // spaces removed will get stored here
 		spaces := []int{} // indicies of  spaces in s2 get stored here
 		for i := 0; i < len(s2); i++ {
 			if s2[i] == ' ' {
@@ -107,7 +120,7 @@ func Decode(s string) string {
 
 		// now rotate left by n
 		fmt.Printf("Now, rotate left %d times\n", n)
-		s4 := rotateStringleft(n, s3)
+		s4 = rotateStringleft(n, s3)
 		fmt.Printf("s4=%s\n\n", s4)
 
 		// Place the spaces back in their original positions
@@ -119,7 +132,7 @@ func Decode(s string) string {
 			continue // we are done with this iteration
 		}
 
-		s5 := ""
+		s5 = ""
 		spacePtr := 0
 		charPtr := 0
 
@@ -145,6 +158,8 @@ func Decode(s string) string {
 }
 
 func Encode(n int, s string) string {
+	fmt.Printf("Welcome to Encode()\ns=>>>%s<<<\nn=%d\n", s, n)
+	//fmt.Printf("Welcome to Encode()\ns=>>>%s<<<\n", s)
 	ret := s
 	for i := 0; i < n; i++ {
 		ret = doapass(n, ret)
@@ -173,23 +188,29 @@ func doapass(n int, s string) string {
 
 	// Step 3 - Place the spaces back in their original positions
 	step3string := ""
-	spacePtr := 0
-	charPtr := 0
+	if len(spaces) > 0 {
+		spacePtr := 0
+		charPtr := 0
 
-	for i := 0; i < len(process); i++ {
-		if spaces[spacePtr] == i {
-			step3string += " "
-			spacePtr++
-			// if we have added the last space, just append the remaining characters and break out
-			if spacePtr == len(spaces) {
-				step3string += ret[charPtr:]
-				break
+		for i := 0; i < len(process); i++ {
+			if spaces[spacePtr] == i {
+				step3string += " "
+				spacePtr++
+				// if we have added the last space, just append the remaining characters and break out
+				if spacePtr == len(spaces) {
+					step3string += ret[charPtr:]
+					break
+				}
+			} else {
+				step3string += string(ret[charPtr])
+				charPtr++
 			}
-		} else {
-			step3string += string(ret[charPtr])
-			charPtr++
+			//fmt.Println(step3string)
 		}
-		//fmt.Println(step3string)
+
+	} else {
+		step3string = ret
+
 	}
 
 	//fmt.Println(step3string)
@@ -245,6 +266,9 @@ func rotateStringleft(n int, s string) string {
 
 func rotateStringRight(n int, s string) string {
 	rs := ""
+	if len(s) == 0 {
+		return s
+	}
 	//fmt.Printf("rotateStringRight() called  n=%d  s=%s\n", n, s)
 
 	loops := 0
