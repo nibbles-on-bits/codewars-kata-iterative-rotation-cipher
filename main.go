@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -138,26 +139,40 @@ func Decode2(s string) string {
 		// build template here
 		spaceCnt := 0
 		groupCnt := 0
+		tmplatePtr := 0
 		//TODO : STOPPED HERE.... not the below isn't working properly yet.... we are trying to rebuild template
-		for x := 0; x < len(dome); x++ {
-			if spaceCnt <= len(spaces) && spaces[spaceCnt] == x {
-				template[x] = x
+		cycles := len(groups) + len(spaces)
+		for x := 0; x < cycles; x++ {
+			if spaceCnt < len(spaces) && spaces[spaceCnt] == tmplatePtr {
+				template[tmplatePtr] = tmplatePtr
+				fmt.Printf("%d.", tmplatePtr)
+				tmplatePtr++
 				spaceCnt++
 			} else {
 				if groupCnt < len(groups) {
 					for y := 0; y < len(groups[groupCnt]); y++ {
-						template[x+y] = groups[groupCnt][y]
-						fmt.Printf("template : %v\n", template)
+						template[tmplatePtr] = groups[groupCnt][y]
+						tmplatePtr++
+						fmt.Printf("%d.", groups[groupCnt][y])
+						//fmt.Printf("template : %v\n", template)
 					}
 					groupCnt++
 				}
 			}
 		}
 
-		fmt.Printf("template : %v\n\n\n", template)
-
-		// re-assign dome here
-
+		fmt.Printf("\ntemplate : %v\n", template)
+		// now rotate template to the left n times
+		fmt.Printf("and rotate left %d times\n", n)
+		template = append(template[n:], template[0:n]...)
+		fmt.Println(template)
+		fmt.Println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+		//now, rebuild dome
+		s := ""
+		for x := 0; x < len(template); x++ {
+			s += string(dome[template[x]])
+		}
+		dome = s
 	}
 
 	return ret
