@@ -19,7 +19,7 @@ func main() {
 	//Decode(test)
 
 	//Decode("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet")
-	Decode2("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet ")
+	Decode2("10 hu fmo a,ys vi utie mr snehn rni tvte .ysushou teI fwea pmapi apfrok rei tnocsclet")
 
 	//test := "l1NkL%.bX#($o9.#   q<R;S2iMpP;#}k"
 	//Encode(7, "0bOg&gWIfAN.y@M)R4P)SAZ3^aDuHKOCw")
@@ -74,46 +74,91 @@ func Decode2(s string) string {
 	idx := strings.Index(s, " ")
 	n, _ := strconv.Atoi(s[:idx])
 	fmt.Printf("n = %v\n", n)
-	dome := s[idx+1:]
+	dome := s[idx+1:] // This will get changed at the end of each cycle
 
 	spaces := []int{}    // indexes of spaces in the original string
 	nonspaces := []int{} // indexes of non spaces in the orinal string
+	//template := []int{}  // This is the template  should be the length of dome
+	template := make([]int, len(dome), len(dome))
 
-	//template := []int{}			// This is the template
-	for x := 0; x < len(dome); x++ {
-		if dome[x] == ' ' {
-			spaces = append(spaces, x)
-		} else {
-			nonspaces = append(nonspaces, x)
-		}
+	for x := 0; x < len(template); x++ {
+		template[x] = x
 	}
 
-	fmt.Printf("spaces    : %v\n", spaces)
-	fmt.Printf("nonspaces : %v\n", nonspaces)
+	///////////// begin main loop
+	for cycles := 0; cycles < n; cycles++ {
 
-	// now, find the groups, just dump it to the screen
-	groups := [][]int{}
-	group := []int{}
+		for x := 0; x < len(dome); x++ {
+			if dome[x] == ' ' {
+				spaces = append(spaces, x)
+			} else {
+				nonspaces = append(nonspaces, x)
+			}
 
-	//group = append(group, nonspaces[0]) // start here
-
-	for x := 0; x < len(nonspaces); x++ {
-
-		group = append(group, nonspaces[x])
-
-		// if the next one is a gap, or if we are done then write this group out
-		if x == len(nonspaces)-1 || nonspaces[x+1]-nonspaces[x] > 1 {
-			groups = append(groups, group)
-			group = []int{} // reset
 		}
+
+		fmt.Printf("spaces    : %v\n", spaces)
+		fmt.Printf("nonspaces : %v\n", nonspaces)
+
+		// now, find the groups, just dump it to the screen
+		groups := [][]int{}
+		group := []int{}
+
+		//group = append(group, nonspaces[0]) // start here
+
+		for x := 0; x < len(nonspaces); x++ {
+
+			group = append(group, nonspaces[x])
+
+			// if the next one is a gap, or if we are done then write this group out
+			if x == len(nonspaces)-1 || nonspaces[x+1]-nonspaces[x] > 1 {
+				groups = append(groups, group)
+				group = []int{} // reset
+			}
+		}
+
+		fmt.Printf("groups : %v\n", groups)
+
+		// now iterate thru each group, rotating to the left n times
+		fmt.Printf("Rotating each group left %d times\n", n)
+
+		for x := 0; x < len(groups); x++ {
+			if len(groups[x]) == 1 {
+				continue
+			}
+			loops := n % len(groups[x])
+			if loops > 0 {
+				groups[x] = append(groups[x][loops:], groups[x][0:loops]...)
+			}
+		}
+
+		fmt.Printf("groups : %v\n", groups)
+
+		fmt.Println("Put the spaces back in and rotate that to the left n times")
+		// build template here
+		spaceCnt := 0
+		groupCnt := 0
+		//TODO : STOPPED HERE.... not the below isn't working properly yet.... we are trying to rebuild template
+		for x := 0; x < len(dome); x++ {
+			if spaceCnt <= len(spaces) && spaces[spaceCnt] == x {
+				template[x] = x
+				spaceCnt++
+			} else {
+				if groupCnt < len(groups) {
+					for y := 0; y < len(groups[groupCnt]); y++ {
+						template[x+y] = groups[groupCnt][y]
+						fmt.Printf("template : %v\n", template)
+					}
+					groupCnt++
+				}
+			}
+		}
+
+		fmt.Printf("template : %v\n\n\n", template)
+
+		// re-assign dome here
+
 	}
-
-	fmt.Printf("groups : %v\n", groups)
-
-	// now iterate thru each group, rotating to the left n times
-	fmt.Printf("Rotating each group left %d times\n")
-
-	//template := make([]int, n) // this is where the final product will reside
 
 	return ret
 }
